@@ -1,0 +1,59 @@
+README - BD-incollo
+******
+
+BD-incollo is a collaborative debugging tool like pastebin but written using Python Django.
+More information at the project page:
+http://bd-things.net/projects/bd-incollo/
+
+DEPENDENCIES
+===============
+- Django >= 1.0 (http://djangoproject.com) - It WON'T Work with old releases
+- A Python interface to a database (python-pysqlite, python-mysqldb, python-pgsql)
+- Pygments >= 1.0 (http://pygments.org)
+- Django-honeypot => 0.1.2 (http://pypi.python.org/pypi/django-honeypot/)
+- A working SMTP server, either local or remote (i.e.: smtp.gmail.com)
+
+
+CONFIGURATION
+===============
+For configuring BD-incollo, you have to edit two files:
+
+- settings.py
+Change all the variable values according to your desires. In particular:
+    HONEYPOT_FIELD_NAME, use a realistic name like "phonenumber"
+    MAX_PASTES_FOR_LATEST_PASTES_SECTION, the number of Pastes showed in the "Latest Pastes" section
+    MAX_PASTES_REMEMBERED_PER_USER, the number of pastes remembered for each user
+    
+- set a valid username for a valid smtp server (EMAIL_HOST, EMAIL_HOST_USER etc.)
+- set all the other usual Django settings values
+
+
+The rest is up to you and Django! Install the models with
+python manage.py syncdb
+
+And decide how to serve it on your web server!
+
+Feedback,bugs,features request: http://dev.task3.cc/tracker/index.php?project=1
+
+
+CREDITS
+===============
+Use of diff_match_patch by Neil Fraser for doing diffs between files (http://code.google.com/p/google-diff-match-patch/)
+Use of django-honeypot by James Turk (http://pypi.python.org/pypi/django-honeypot/)
+Use of Jquery and Thickbox for graphical stuff (jquery.com)
+
+
+LICENSE
+===============
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.

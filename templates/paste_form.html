@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+{% load honeypot %}
+{% block title %}
+Incollo.com - a free collaborative debugging tool - New Paste
+{% endblock %}
+
+{% block center %}
+
+{% if error_message %}
+    <script type="text/javascript">
+	    $(document).ready(function(){
+		$("div.error").fadeIn("slow");
+	    });
+    </script>
+    <div class="error">{{error_message}}</div>
+{% endif %}
+<script type="text/javascript">
+
+$(function(){
+    $('#new-paste').submit(function(){
+	$("div.message").hide();
+	if($('#id_body').val()!=""){
+	    $("div.message").html("Submitting Paste...").fadeIn();
+	    return true;
+	}else{
+	    $("div.message").css("border-color","red");
+	    $("div.message").html("Please provide a text for your Paste").fadeIn();
+	    return false;
+	}
+    });
+});
+</script>
+<div class="message" style="display:none"></div>
+<form method="post" action="/" class="paste" id="new-paste">
+    <table class="new_paste">
+	<tr>
+	    <td class="left">
+		<label for="id_body">Entry:</label>
+	    </td>
+	    <td class="center">
+		{{ form.body }}
+	    </td>
+	</tr>
+	<tr>
+	    <td class="left">
+                <label for="id_language">Language:</label>
+	    </td>
+	    <td class="center">
+                <select id="id_language" name="language">
+                    <option value="text">No filter</option>
+                    <option value="as" >ActionScript</option>
+                    <option value="as3" >ActionScript 3</option>
+                    <option value="apacheconf" >ApacheConf</option>
+                    <option value="bbcode" >BBCode</option>
+                    <option value="bash" >Bash</option>
+                    <option value="bat" >Batchfile</option>
+                    <option value="befunge" >Befunge</option>
+                    <option value="boo" >Boo</option>
+                    <option value="brainfuck" >Brainfuck</option>
+                    <option value="c" >C</option>
+                    <option value="csharp" >C#</option>
+                    <option value="cpp" >C++</option>
+                    <option value="css" >CSS</option>
+                    <option value="css+django" >CSS+Django/Jinja</option>
+                    <option value="css+genshitext" >CSS+Genshi Text</option>
+                    <option value="css+mako" >CSS+Mako</option>
+                    <option value="css+myghty" >CSS+Myghty</option>
+                    <option value="css+php" >CSS+PHP</option>
+                    <option value="css+erb" >CSS+Ruby</option>
+                    <option value="css+smarty" >CSS+Smarty</option>
+                    <option value="cheetah" >Cheetah</option>
+                    <option value="clojure" >Clojure</option>
+                    <option value="common-lisp" >Common Lisp</option>
+                    <option value="d" >D</option>
+                    <option value="dpatch" >Darcs Patch</option>
+                    <option value="control" >Debian Control file</option>
+                    <option value="sourceslist" >Debian Sourcelist</option>
+                    <option value="delphi" >Delphi</option>
+                    <option value="diff" >Diff</option>
+                    <option value="django" >Django/Jinja</option>
+                    <option value="dylan" >Dylan</option>
+                    <option value="erb" >ERB</option>
+                    <option value="erlang" >Erlang</option>
+                    <option value="fortran" >Fortran</option>
+                    <option value="gas" >GAS</option>
+                    <option value="genshi" >Genshi</option>
+                    <option value="genshitext" >Genshi Text</option>
+                    <option value="pot" >Gettext Catalog</option>
+                    <option value="gnuplot" >Gnuplot</option>
+                    <option value="groff" >Groff</option>
+                    <option value="html" >HTML</option>
+                    <option value="html+cheetah" >HTML+Cheetah</option>
+                    <option value="html+django" >HTML+Django/Jinja</option>
+                    <option value="html+genshi" >HTML+Genshi</option>
+                    <option value="html+mako" >HTML+Mako</option>
+                    <option value="html+myghty" >HTML+Myghty</option>
+                    <option value="html+php" >HTML+PHP</option>
+                    <option value="html+smarty" >HTML+Smarty</option>
+                    <option value="haskell" >Haskell</option>
+                    <option value="ini" >INI</option>
+                    <option value="irc" >IRC logs</option>
+                    <option value="io" >Io</option>
+                    <option value="java" >Java</option>
+                    <option value="jsp" >Java Server Page</option>
+                    <option value="js" >JavaScript</option>
+                    <option value="js+cheetah" >JavaScript+Cheetah</option>
+                    <option value="js+django" >JavaScript+Django/Jinja</option>
+                    <option value="js+genshitext" >JavaScript+Genshi Text</option>
+                    <option value="js+mako" >JavaScript+Mako</option>
+                    <option value="js+myghty" >JavaScript+Myghty</option>
+                    <option value="js+php" >JavaScript+PHP</option>
+                    <option value="js+erb" >JavaScript+Ruby</option>
+                    <option value="js+smarty" >JavaScript+Smarty</option>
+                    <option value="llvm" >LLVM</option>
+                    <option value="lighty" >Lighttpd configuration file</option>
+                    <option value="lhs" >Literate Haskell</option>
+                    <option value="logtalk" >Logtalk</option>
+                    <option value="lua" >Lua</option>
+                    <option value="moocode" >MOOCode</option>
+                    <option value="basemake" >Makefile</option>
+                    <option value="make" >Makefile</option>
+                    <option value="mako" >Mako</option>
+                    <option value="matlab" >Matlab</option>
+                    <option value="matlabsession" >Matlab session</option>
+                    <option value="minid" >MiniD</option>
+                    <option value="trac-wiki" >MoinMoin/Trac Wiki markup</option>
+                    <option value="mupad" >MuPAD</option>
+                    <option value="mysql" >MySQL</option>
+                    <option value="myghty" >Myghty</option>
+                    <option value="nasm" >NASM</option>
+                    <option value="nginx" >Nginx configuration file</option>
+                    <option value="numpy" >NumPy</option>
+                    <option value="ocaml" >OCaml</option>
+                    <option value="objective-c" >Objective-C</option>
+                    <option value="php" >PHP</option>
+                    <option value="pov" >POVRay</option>
+                    <option value="perl" >Perl</option>
+                    <option value="python" >Python</option>
+                    <option value="python3" >Python 3</option>
+                    <option value="pytb" >Python Traceback</option>
+                    <option value="pycon" >Python console session</option>
+                    <option value="rhtml" >RHTML</option>
+                    <option value="raw" >Raw token data</option>
+                    <option value="redcode" >Redcode</option>
+                    <option value="rb" >Ruby</option>
+                    <option value="rbcon" >Ruby irb session</option>
+                    <option value="splus" >S</option>
+                    <option value="sql" >SQL</option>
+                    <option value="scala" >Scala</option>
+                    <option value="scheme" >Scheme</option>
+                    <option value="smalltalk" >Smalltalk</option>
+                    <option value="smarty" >Smarty</option>
+                    <option value="squidconf" >SquidConf</option>
+                    <option value="tcl" >Tcl</option>
+                    <option value="tcsh" >Tcsh</option>
+                    <option value="tex" >TeX</option>
+                    <option value="text" >Text only</option>
+                    <option value="vb.net" >VB.net</option>
+                    <option value="vim" >VimL</option>
+                    <option value="xml" >XML</option>
+                    <option value="xml+cheetah" >XML+Cheetah</option>
+                    <option value="xml+django" >XML+Django/Jinja</option>
+                    <option value="xml+mako" >XML+Mako</option>
+                    <option value="xml+myghty" >XML+Myghty</option>
+                    <option value="xml+php" >XML+PHP</option>
+                    <option value="xml+erb" >XML+Ruby</option>
+                    <option value="xml+smarty" >XML+Smarty</option>
+                    <option value="xslt" >XSLT</option>
+                    <option value="yaml" >YAML</option>
+                    <option value="c-objdump" >c-objdump</option>
+                    <option value="cpp-objdump" >cpp-objdump</option>
+                    <option value="d-objdump" >d-objdump</option>
+                    <option value="objdump" >objdump</option>
+                    <option value="rst" >reStructuredText</option>
+                    <option value="sqlite3" >sqlite3con</option>
+                </select>
+		{{ form.private }} <label for="id_private">Private?</label>
+            </td>
+	    <td>{% render_honeypot_field %}</td>
+        </tr>
+        <tr>
+	
+            <td class="left">
+                <label for="id_title">Title:</label>
+            </td>
+            <td class="center">
+                {{ form.title }}
+            </td>
+        </tr>
+        <tr>
+            <td class="left">&nbsp;</td>
+            <td class="center">
+		<input type="hidden" name="captched" value="false" />
+                <input type="submit" value="Paste!" id="id_submit" />
+            </td>
+        </tr>
+    </table>
+</form>
+{% endblock %}

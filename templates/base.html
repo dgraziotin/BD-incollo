@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="/media/style.css" />
+    <script type="text/javascript" src="/media/jquery.js"></script>
+    <script type="text/javascript" src="/media/jquery.field.js"></script>
+    <script type="text/javascript" src="/media/thickbox.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? 
+"https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + 
+"google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-5685155-2");
+pageTracker._trackPageview();
+</script>
+<script type="text/javascript">
+
+$(function(){
+    $('a.select_all_text').click(function(){
+        $('textarea.code_plain').select();
+        return false;
+    });
+});
+
+$(function(){
+    $('a.new-window').click(function(){
+        window.open(this.href);
+        return false;
+    });
+});
+
+</script>
+    <div class="menu">
+        <div class="menuleft">
+                <a href="/">New Paste</a>
+		<a href="/latest-pastes">View Last Pastes</a>
+		<a href="/latest-personal-pastes">View Your Pastes</a>
+		<a href="/news" class="new">News</a>
+                <a href="/about">About</a>
+                <a href="/bug">Found a Bug / Request Features</a>
+        </div>
+        <div class="menuright">
+                <form action="/search" method="get">
+                    <div>
+                        <input type="text" name="q" id="id_query" value="{{query|escape}}" />
+                        <input type="submit" id="id_search" value="Search" />
+                    </div>
+                </form>
+        </div>
+    </div>
+    <div class="center">
+        <div class="content">
+    {% block center %}{% endblock %}
+        </div>
+    </div>
+    <div class="footer">
+        <a href="http://incollo.com/">Incollo.com</a>, powered by <a href="http://bd-things.net/projects/bd-incollo/">BD-incollo</a>.
+        For more information, see the <a href="/about">about page</a> and <a href="http://bd-things.net">bodom_lx blog</a>
+    </div>
+</body>
+</html>

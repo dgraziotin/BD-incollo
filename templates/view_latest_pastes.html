@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}
+Incollo.com - a free collaborative debugging tool - View Last Pastes
+{% endblock %}
+
+{% block center %}
+
+{% if personal_pastes %}
+    <h1>Last Personal Pastes</h1>
+    <h3>...don't worry, it is just a cookie...</h3>
+{% else %}
+    <h1>Last Public Pastes Submitted</h1>
+{% endif %}
+
+<div class="highlight">
+    {% if entries %}
+        {% for entry in entries %}
+        <ul>
+            {% ifequal entry.title '' %}
+                    <li style="paste_title">
+                        <a href="{{entry.get_absolute_url}}">Untitled Paste</a>
+                        {% if personal_pastes %} <a href="/delete/{{entry.hash_key}}" class="new">Delete</a>{% endif %}
+                    </li>
+            {% else %}
+                    <li style="paste_title">
+                        <a href="{{entry.get_absolute_url}}">{{entry.title}}</a>
+                        {% if personal_pastes %} <a href="/delete/{{entry.hash_key}}" class="new">Delete</a>{% endif %}
+                    </li>
+            {% endifequal %}
+                
+            <li>{{entry.body|truncatewords:20}}</li>
+        </ul>
+        {% endfor %}
+    {% else %}
+        {% if personal_pastes %}
+            There are no stored Pastes related to you.
+        {% else %}
+            There are no public Pastes yet.
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %}

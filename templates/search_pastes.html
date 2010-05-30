@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}
+Incollo.com - a free collaborative debugging tool - Search Paste
+{% endblock %}
+
+{% block center %}
+<h1>Search in Public Pastes</h1>
+{% if query %}
+    {% if entries %}
+    <div class="highlight">
+        {% for entry in entries %}
+        <ul>
+        {% ifequal entry.title '' %}
+            <li style="paste_title"><a href="/{{entry.hash_key}}">Untitled Paste</a></li>
+        {% else %}
+            <li style="paste_title"><a href="/{{entry.hash_key}}">{{entry.title}}</a></li>
+        {% endifequal %}
+            <li>{{entry.body|truncatewords:30}}...</li>
+        </ul>
+        {% endfor %}
+    </div>
+    {% else %}
+        Sorry, no results..
+    {% endif %}
+{% endif %}
+{% endblock %}

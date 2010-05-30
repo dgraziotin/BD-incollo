@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block title %}
+Incollo.com - a free collaborative debugging tool - New Paste
+{% endblock %}
+
+{% block center %}
+        <h1>
+            Enhance Paste
+        </h1>
+	{% if error_message %}
+	    <div class="error">{{error_message}}</div>
+	{% endif %}
+        <h3>
+            <label for="id_language">Language of this Paste: </label>
+            <input type="text" value="{{paste_discussed.language}}"/>
+	    <label for="id_language">Will be private: </label>
+            <input type="text" value="{{paste_discussed.private}}"/>
+        </h3>
+	<div class="sub-header">
+	    <script type="text/javascript">
+	    $(document).ready(function(){
+		$("div.in-response-to").hide();
+		$("div.error").hide();
+		$("div.in-response-to").fadeIn("slow");
+		$("div.error").fadeIn("slow");
+	    });
+
+	    $(function(){
+		$('#new-paste').submit(function(){
+		    $("div.message").hide();
+		    if($('#id_body').val()!=""){
+			$("div.message").css("border-color","#cccccc");
+			$("div.message").html("Submitting Paste...").fadeIn();
+			return true;
+		    }else{
+			$("div.message").css("border-color","red");
+			$("div.message").html("Please provide a text for your Paste").fadeIn();
+			return false;
+		    }
+		});
+	    });
+
+	    </script>
+	    <div class="in-response-to">
+	    <h3>
+		<label for="id_permalink">In response to: </label>
+		<a id="original-paste" href="{{paste_discussed.get_absolute_url}}">{{paste_discussed}}</a>, posted on {{paste_discussed.entry_date|date}}&nbsp;
+	    </h3>
+	    </div>
+	</div>
+<div class="message" style="display:none"></div>
+<form method="post" action="/discuss/{{paste_discussed.hash_key}}" class="paste" id="new-paste">
+    <table class="new_paste">
+	<tr>
+	    <td class="left">
+		<label for="id_body">Entry:</label>
+	    </td>
+	    <td class="center">
+		{{ form.body }}
+	    </td>
+	</tr>
+	<tr>
+            <td class="left">
+                <label for="id_title">Title:</label>
+            </td>
+            <td class="center">
+                {{ form.title }}
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>
+		<input type="hidden" name="language" id="id_language" value="{{paste_discussed.language}}" />
+		{% if paste_discussed.private %}
+		<input type="hidden" name="private" id="id_private" value="On" />
+                {% else %}
+		<input type="hidden" name="private" id="id_private" value="Off" />
+		{% endif %}
+                <input type="submit" value="Paste!" id="id_submit" />
+            </td>
+        </tr>
+
+    </table>
+</form>
+{% endblock %}

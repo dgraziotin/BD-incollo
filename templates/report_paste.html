@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="/media/style.css" />
+</body>
+<body>
+<div class="center">
+        <div class="content">
+{% if report_message %}
+	<div style="color:red;font-weight:bold;font-size:1.8em;text-align:center;">{{report_message}}</div>
+{% endif %}
+		<div class="report" id="report">
+			<h3>Report Abuse</h3>
+			<div>
+			<form method="post" action="/report/{{entry.hash_key}}">
+			    {{report_form.as_p}}
+			<p><input type="hidden" name="hash_key" value="{{entry.hash_key}}" /></p>
+			<p><input type="submit" value="Report!" /> </p>
+			</form>
+			</div>
+		<div>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+{% load comments %}
+<script type="text/javascript">
+	     $(document).ready(function(){
+		$("div.comments").css("display","none");	   
+		$("div.entry").css("width","99%");
+		$("div.commentform").css("display","none");
+	     });
+	     var flip = 0;
+	    $(function(){
+		$('a#display-comments').click(function(event){
+		if(flip++ % 2 == 0){
+		    $("div.entry").animate({ width: "69%"},function(){
+			$("div.comments").toggle("slow");
+		    });
+		}else{
+		    $("div.comments").toggle("slow",function(){
+			$("div.entry").animate({ width: "98%"});
+		    });
+		    	
+		}	
+		event.preventDefault();  
+		});
+	    });
+	    
+	    $(function(){
+		$('a#display-commentform').click(function(event){
+		    $("div.commentform").toggle("slow");
+		    event.preventDefault();
+		});
+	    });
+	     
+	</script>
+	
+<div class="comments">
+	<h2>Comments</h2>
+	
+	{% get_comment_list for entry as comment_list %}
+	{% for comment in comment_list %}
+	    <div class="comment">
+		<h3>{{comment.user_name}}<h3>
+		<div class="comment-body">{{comment.comment}}</div>
+	    </div>
+	{% endfor %}	
+	{% get_comment_form for entry as form %}
+	<a href="" id="display-commentform">Leave a comment</a>
+	    <div class="commentform">	
+	    <form action="{% comment_form_target %}" method="POST">
+	    <table>
+	    <tr><th>Name</th><td>{{form.name}}</td></tr>
+	    <tr><th>Email</th><td>{{form.email}}</td></tr>
+	    <tr><th>Comment</th><td>{{form.comment}}</td></tr>
+	    <tr>
+		<th></th>
+		<td>
+		{{form.content_type}}
+		{{form.object_pk}}
+		{{form.timestamp}}
+		{{form.security_hash}}
+		<input type="hidden" name="honeypot" id="id_honeypot" value="" />
+		<input type="hidden" name="next" value="/{{entry.hash_key}}" />
+		</td>
+	    </tr>
+	    <td><input type="submit" class="submit-post" value="Submit"></td>
+	    </tr>
+	    </table>
+	    </form>
+</div>

@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}
+Incollo.com - a free collaborative debugging tool - View Paste
+{% endblock %}
+
+{% block center %}
+        <h1>
+            {% ifequal entry.title '' %}
+                <a name="colorized" href="{{entry.get_absolute_url}}">Untitled Paste</a>
+            {% else %}
+                <a name="colorized" href="{{entry.get_absolute_url}}">{{entry.title}}</a>
+            {% endifequal %}
+        </h1>
+	    
+        <h3>
+            <label for="id_permalink">Permalink to this Paste: </label>
+            <input type="text" value="http://incollo.com/{{entry.hash_key}}" id="id_permalink" onfocus="selectAll('id_permalink');" />
+            <label for="id_language">Language of this Paste: </label>
+            <input type="text" value="{{entry.language}}"/>
+        </h3>
+	<div class="sub-header">
+	    {% if entry.in_response_to %}
+	    <script type="text/javascript">
+	    $(document).ready(function(){
+		$("div.in-response-to").hide();
+		$("div.in-response-to").fadeIn("slow");
+	    });
+	    </script>
+	    <div class="in-response-to">
+	    <h3>
+		<label for="id_permalink">In response to: </label>
+		<a id="original-paste" href="{{entry.in_response_to.get_absolute_url}}">{{entry.in_response_to}}</a>, posted on {{entry.in_response_to.entry_date|date}}&nbsp;
+		<a id="view-diff" href="/compare/{{entry.in_response_to.hash_key}}/{{entry.hash_key}}?keepThis=true&TB_iframe=true&height=500&width=800" class="thickbox new">View diff</a>
+		<a id="view-diff" href="/compare/{{entry.in_response_to.hash_key}}/{{entry.hash_key}}" class="new-window">View diff (full-screen)</a>
+	    </h3>
+	    
+	    {% else %}
+	    <div class="not-in-response-to">
+	    <h3>
+		&nbsp;
+	    </h3>
+	    {% endif %}
+	    </div>
+	</div>
+
+        <a href="/download/{{entry.hash_key}}">Download as Text File</a>
+	<a href="/discuss/{{entry.hash_key}}" class="new">Submit enhancements to this Paste</a>
+        <a href="/report/{{entry.hash_key}}?KeepThis=true&TB_iframe=true&height=500&width=600" style="margin-right:20px;" class="thickbox">Report Abuse</a>
+	<a href="" id="display-comments" >Show Comments</a>        
+        <a href="#plain">Jump to Plain Text Version</a>
+	
+	<div class="clear">&nbsp;</div>
+        <div class="entry">
+	    {% autoescape off %}{{colorized_body}}{% endautoescape %}
+        </div>
+	    
+	    {% include "comments.html" %}
+	
+	</div>
+	<div class="clear">&nbsp;</div>
+	<div style="height:35px;">
+	&nbsp;
+	</div>
+
+
+	
+        <h1><a name="plain">Plain Text</a></h1>
+	<div style="height:35px;">
+	{% if entry.in_response_to %}
+	<h3>
+	    <label for="id_permalink">In response to: </label>
+            <a href="{{entry.in_response_to.get_absolute_url}}">{{entry.in_response_to.title}}</a>
+	</h3>
+	{% else %}
+	&nbsp;
+	{% endif %}
+	</div>
+        <a href="/download/{{entry.hash_key}}">Download as Text File</a>
+        <a href="" class="select_all_text" >Select all Text</a>
+	<a href="/discuss/{{entry.hash_key}}" class="new">Submit enhancements to this Paste</a>
+        <a href="/report/{{entry.hash_key}}?KeepThis=true&TB_iframe=true&height=500&width=600" style="margin-right:20px;" class="thickbox">Report Abuse</a>
+        <a href="#colorized">Jump to Colorized Version</a>
+	<div>
+		<textarea readonly="readonly" name="code_plain" id="id_code_plain" class="code_plain">{{entry.body}}</textarea>
+	</div>
+{% endblock %}

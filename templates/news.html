@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}
+Incollo.com - a free collaborative debugging tool - View Paste
+{% endblock %}
+
+{% block center %}
+<script type="text/javascript">
+$(document).ready(function(){
+  $("div.news").hide();
+  $("div.news").fadeIn("slow");
+});
+</script>
+        <h1>
+            News
+        </h1>
+	
+        <div class="entry">
+		<div class="news-container">
+			<div class="news">
+				<h1>2009-08-03: version 1.0, Comments and Remembering</h1>
+				<p>Akismet removed (too aggressive for Pastes)</p>
+				<p><strong>Features added:</strong></p>
+				<ul>
+					<li>Comment system for Pastes using <a href="http://docs.djangoproject.com/en/dev/ref/contrib/comments/">Django Comments Framework</a></li>
+					<li>Spam fighted using <a href="http://pypi.python.org/pypi/django-honeypot/">Django Honeypot</a> by James Turk</li>
+					<li>Last user Pastes remembered by the system (through a session cookie)</li>
+					<li>There are some jquery effects but the whole site works even if you disable Javascript</li>
+				</ul>
+			</div>
+			<div class="news">
+				<h1>2009-07-25: version 0.9, fight against spam</h1>
+				<p>Use of Akismet for fighting Spam</p>
+				<p><strong>Features added:</strong></p>
+				<ul>
+					<li>- Added <a href="http://akismet.com">Akismet</a> antispam service using Michael Foord's <a href="http://www.voidspace.org.uk/python/modules.shtml">akismet.py</a></li>
+					<li>- Added a hash key collision detection system that re-computes the hash value in case of collision</li>
+				</ul>
+			</div>
+			<div class="news">
+				<h1>2009-07-23: version 0.8, improvements</h1>
+				<p>Many improvements after a year of service utilization, developed in three days of free time</p>
+				<p><strong>Features added:</strong></p>
+				<ul>
+					<li>- Added <a href="http://jquery.com">jquery</a> framework</li>
+					<li>- Added <a href="http://jquery.com/demo/thickbox/">thickbox</a></li>
+					<li>- Possibility to discuss (enhance) a Paste</li>
+					<li>- Possibility to view diffs between the original Paste</li>
+					<li>- Possibility to flag a Paste as Private</li>
+					<li>- Some graphical goodies</li>
+					<li>- Cleaner code</li>
+					<li>- Better hash function</li>
+					<li>- Better models</li>
+					<li>- More templates (404 template)</li>
+					<li>- Use of thickbox for report abuse</li>
+					<li>- Use of thickbox for view diff</li>
+					<li>- Use of <a href="http://code.google.com/p/google-diff-match-patch/">diff_match_patch</a> by Neil Fraser for doing diffs between files</li>
+				</ul>
+			</div>
+			<div class="news">
+				<h1>2008-09-30: version 0.1, service launch</h1>
+				<p>
+					Service created as a challenge in learning Python Django. See <a href="/about">about section</a> and
+					<a href="http://bd-things.net/announcing-incollo-com-service/">author's blog entry</a> for more info.
+				</p>
+				<p><strong>Features:</strong></p>
+				<ul>
+					<li>- Paste some text or some code</li>
+					<li>- Decide whether to colorize its syntax or not</li>
+					<li>- Get a nice url with the form incollo.com/36044c9e</li>
+					<li>- Visualize the Paste either in plain text version or in colorized version</li>
+					<li>- Download the Paste as text file</li>
+					<li>- Report a Paste as abuse</li>
+					<li>- Search Pastes</li>
+					<li>- View Last 30 Pastes</li>
+				</ul>
+			</div>
+		</div>
+        </div>
+{% endblock %}
